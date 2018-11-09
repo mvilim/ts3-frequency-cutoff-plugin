@@ -21,7 +21,6 @@
 #pragma once
 
 #include <string.h>
-#include <memory>
 
 #include <ts3_functions.h>
 

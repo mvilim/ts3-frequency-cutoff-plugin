@@ -20,7 +20,6 @@
 
 #pragma once
 
-#include <math.h>
 #include <string.h>
 #include <fstream>
 #include <map>
