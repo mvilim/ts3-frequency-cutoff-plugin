@@ -6,21 +6,21 @@ This is a TeamSpeak3 plugin designed to remove audio frequencies above a given l
 
 To install the plugin, you should download a compiled version of the plugin for your TeamSpeak version and OS. The plugin needs to be placed in your TeamSpeak plugin folder.
 
-### TeamSpeak version 3.1-3.1 plugin releases
+### TeamSpeak version 3.1.1--present (Nov 2018) plugin releases (plugin API 22)
 
-Linux: 
+Linux: [libfrequency_cutoff_plugin_api22.1.4.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.4.0/libfrequency_cutoff_plugin_api22.1.4.0.so)
 
-Windows:
+Windows: [frequency_cutoff_plugin_api22.1.4.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.4.0/frequency_cutoff_plugin_api22.1.4.0.dll)
 
-macOS:
+macOS: not currently released
 
-### TeamSpeak version 3.2-3.2 plugin releases
+### TeamSpeak version 3.1.0.1 plugin releases (plugin API 21)
 
-Linux: 
+Linux: [libfrequency_cutoff_plugin_api21.1.4.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.4.0/libfrequency_cutoff_plugin_api21.1.4.0.so)
 
-Windows:
+Windows: [frequency_cutoff_plugin_api21.1.4.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.4.0/frequency_cutoff_plugin_api21.1.4.0.dll)
 
-macOS:
+macOS: not currently released
 
 ### Plugin folder locations:
 
@@ -28,7 +28,7 @@ Linux/macOS -- ~/.ts3client/plugins/
 
 Windows -- either:
 
-appdata location: %appdata%/TS3client/plugins
+appdata location: %APPDATA%/Roaming/TS3client/plugins
 
 OR
 
