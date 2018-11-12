@@ -32,7 +32,7 @@
 
 #define DISPLAY_NAME_BUFSIZE 512
 
-const char* freq_cutoff_version() { return "1.4"; }
+const char* freq_cutoff_version() { return "1.5"; }
 
 const char* freq_cutoff_author() { return "Michael Vilim"; }
 
@@ -74,8 +74,8 @@ void resolve_id(const struct TS3Functions& ts3_functions, uint64 server_id,
         filter_group->server_filter_groups[server_id];
     if (!server_filters.resolvedIds.count(client_id)) {
         char* uname;
-        if (ts3_functions.getClientSelfVariableAsString(
-                server_id, ClientProperties::CLIENT_UNIQUE_IDENTIFIER,
+        if (ts3_functions.getClientVariableAsString(
+                server_id, client_id, ClientProperties::CLIENT_UNIQUE_IDENTIFIER,
                 &uname) != ERROR_ok) {
             log_error(ts3_functions,
                       "Error resolving client identity for client id %i",
