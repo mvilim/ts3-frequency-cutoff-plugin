@@ -130,15 +130,21 @@ class ApplicationFilterGroup {
         std::ifstream config_file(config_filename);
         if (config_file.good() && config_file.is_open()) {
             while (std::getline(config_file, line)) {
-                size_t first_delim = line.find(delimiter, 0);
-                size_t second_delim = line.find(delimiter, 1);
-                std::string name = line.substr(0, first_delim);
-                std::string str_freq =
-                    line.substr(first_delim + 1, second_delim);
-                std::string st_enabled = line.substr(second_delim + 1);
-                int freq = std::stoi(str_freq);
-                bool enabled = std::stoi(str_freq);
-                file_confs.emplace(name, FilterConf(enabled, freq));
+                if (!line.empty()) {
+                    size_t first_delim = line.find(delimiter, 0);
+                    size_t second_delim = line.find(delimiter, first_delim + 1);
+                    std::string name = line.substr(0, first_delim);
+                    std::string str_freq =
+                        line.substr(first_delim + 1, second_delim);
+                    std::string st_enabled =
+                        line.substr(second_delim + 1, second_delim + 2);
+                    int freq = std::stoi(str_freq);
+                    bool enabled = std::stoi(st_enabled);
+                    log_info(ts3_functions,
+                             "Loaded cutoff filter for %s %i Hz, enabled = %s",
+                             name.c_str(), freq, enabled ? "true" : "false");
+                    file_confs.emplace(name, FilterConf(enabled, freq));
+                }
             }
             config_file.close();
         }
@@ -175,8 +181,7 @@ class ApplicationFilterGroup {
                         printf("writing name %s\n", line.first.c_str());
                         config_file << line.first << " "
                                     << line.second.coefficients.cutoff_freq
-                                    << " " << line.second.enabled
-                                    << std::endl;
+                                    << " " << line.second.enabled << std::endl;
                     }
                     config_file.close();
                     file_confs = *confs;
