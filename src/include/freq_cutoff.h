@@ -175,7 +175,8 @@ class ApplicationFilterGroup {
                         printf("writing name %s\n", line.first.c_str());
                         config_file << line.first << " "
                                     << line.second.coefficients.cutoff_freq
-                                    << " " << line.second.enabled;
+                                    << " " << line.second.enabled
+                                    << std::endl;
                     }
                     config_file.close();
                     file_confs = *confs;
