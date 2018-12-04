@@ -72,22 +72,26 @@ void resolve_id(const struct TS3Functions& ts3_functions, uint64 server_id,
                 anyID client_id) {
     ServerFilterGroup& server_filters =
         filter_group->server_filter_groups[server_id];
-    if (!server_filters.resolvedIds.count(client_id)) {
+    if (!server_filters.resolvedIds.count(client_id) &&
+        !server_filters.unresolvableIds.count(client_id)) {
         char* uname;
         if (ts3_functions.getClientVariableAsString(
-                server_id, client_id, ClientProperties::CLIENT_UNIQUE_IDENTIFIER,
+                server_id, client_id,
+                ClientProperties::CLIENT_UNIQUE_IDENTIFIER,
                 &uname) != ERROR_ok) {
             log_error(ts3_functions,
                       "Error resolving client identity for client id %i",
                       client_id);
+            server_filters.unresolvableIds.insert(client_id);
+        } else {
+            log_info(ts3_functions,
+                     "Resolving uid for client id %i -- found %s", client_id,
+                     uname);
+
+            server_filters.resolvedIds.emplace(client_id, uname);
+
+            ts3_functions.freeMemory(uname);
         }
-
-        log_info(ts3_functions, "Resolving uid for client id %i -- found %s",
-                 client_id, uname);
-
-        server_filters.resolvedIds.emplace(client_id, uname);
-
-        ts3_functions.freeMemory(uname);
     }
 }
 
@@ -141,61 +145,65 @@ ButterworthFilter& get_filter(const struct TS3Functions& ts3_functions,
 // Other solutions could include: removing servers/clients based on timeout or
 // removing them based on map size (i.e. maximum number of active filters)
 void freq_cutoff_onEditPlaybackVoiceDataEvent(
-    const struct TS3Functions& ts3_functions, uint64 server_id,
-    anyID client_id, short* samples, int sample_count, int channels) {
+    const struct TS3Functions& ts3_functions, uint64 server_id, anyID client_id,
+    short* samples, int sample_count, int channels) {
     resolve_id(ts3_functions, server_id, client_id);
     ServerFilterGroup& server_filters =
         filter_group->server_filter_groups[server_id];
-    shared_ptr<map<const string, FilterConf>> confs =
-        filter_group->load_atomic();
-    const string& uname = server_filters.resolvedIds[client_id];
+    if (server_filters.resolvedIds.count(client_id)) {
+        const string& uname = server_filters.resolvedIds[client_id];
+        shared_ptr<map<const string, FilterConf>> confs =
+            filter_group->load_atomic();
 
-    if (confs->count(uname)) {
-        FilterConf& filter_conf = confs->at(uname);
-        if (filter_conf.enabled) {
-            ButterworthFilter& filter =
-                get_filter(ts3_functions, server_filters, filter_conf, client_id);
+        if (confs->count(uname)) {
+            FilterConf& filter_conf = confs->at(uname);
+            if (filter_conf.enabled) {
+                ButterworthFilter& filter = get_filter(
+                    ts3_functions, server_filters, filter_conf, client_id);
 
-            ButterworthCoefficients& coefficients = filter_conf.coefficients;
+                ButterworthCoefficients& coefficients =
+                    filter_conf.coefficients;
 
-            for (int c = 0; c < channels; c++) {
-                ButterworthChannelFilter& channel_filter = filter.channel_map[c];
-                for (int s = 0; s < sample_count; s++) {
-                    double new_x = (double)samples[s * channels + c];
-                    double new_y = (coefficients.b[0]) * new_x;
-                    for (int i = 1; i <= buffer_size; i++) {
-                        new_y +=
-                            (coefficients.b[i] *
-                             channel_filter
-                                 .x[(channel_filter.index - i + buffer_size) %
-                                    buffer_size]);
-                        new_y -=
-                            (coefficients.a[i] *
-                             channel_filter
-                                 .y[(channel_filter.index - i + buffer_size) %
-                                    buffer_size]);
+                for (int c = 0; c < channels; c++) {
+                    ButterworthChannelFilter& channel_filter =
+                        filter.channel_map[c];
+                    for (int s = 0; s < sample_count; s++) {
+                        double new_x = (double)samples[s * channels + c];
+                        double new_y = (coefficients.b[0]) * new_x;
+                        for (int i = 1; i <= buffer_size; i++) {
+                            new_y += (coefficients.b[i] *
+                                      channel_filter.x[(channel_filter.index -
+                                                        i + buffer_size) %
+                                                       buffer_size]);
+                            new_y -= (coefficients.a[i] *
+                                      channel_filter.y[(channel_filter.index -
+                                                        i + buffer_size) %
+                                                       buffer_size]);
+                        }
+
+                        channel_filter.x[channel_filter.index % buffer_size] =
+                            new_x;
+                        channel_filter.y[channel_filter.index % buffer_size] =
+                            new_y;
+                        for (int c = 0; c < channels; c++) {
+                            samples[s * channels + c] = (short)new_y;
+                        }
+                        channel_filter.index =
+                            (channel_filter.index + 1) % buffer_size;
                     }
-
-                    channel_filter.x[channel_filter.index % buffer_size] = new_x;
-                    channel_filter.y[channel_filter.index % buffer_size] = new_y;
-                    for (int c = 0; c < channels; c++) {
-                        samples[s * channels + c] = (short)new_y;
-                    }
-                    channel_filter.index =
-                        (channel_filter.index + 1) % buffer_size;
                 }
+                return;
             }
-            return;
+        } else {
+            server_filters.client_id_to_filter.erase(client_id);
         }
-    } else {
-        server_filters.client_id_to_filter.erase(client_id);
     }
 }
 
-void open_dialog(QWidget* parent_widget, const struct TS3Functions& ts3_functions,
-                 uint64 server_id, anyID client_id) {
-    const string dname =
-        display_name(ts3_functions, server_id, client_id);
+void open_dialog(QWidget* parent_widget,
+                 const struct TS3Functions& ts3_functions, uint64 server_id,
+                 anyID client_id) {
+    const string dname = display_name(ts3_functions, server_id, client_id);
     ServerFilterGroup& server_filters =
         filter_group->server_filter_groups[server_id];
     resolve_id(ts3_functions, server_id, client_id);

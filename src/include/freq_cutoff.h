@@ -23,6 +23,7 @@
 #include <string.h>
 #include <fstream>
 #include <map>
+#include <set>
 #include <memory>
 
 #include <teamspeak/public_definitions.h>
@@ -35,6 +36,7 @@ extern "C" {
 using std::atomic;
 using std::endl;
 using std::map;
+using std::set;
 using std::shared_ptr;
 using std::string;
 
@@ -110,6 +112,7 @@ class ButterworthFilter {
 class ServerFilterGroup {
    public:
     map<anyID, const string> resolvedIds;
+    set<anyID> unresolvableIds;
     map<anyID, ButterworthFilter> client_id_to_filter;
 };
 
