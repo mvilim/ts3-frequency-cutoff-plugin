@@ -144,6 +144,11 @@ ButterworthFilter& get_filter(const struct TS3Functions& ts3_functions,
 //
 // Other solutions could include: removing servers/clients based on timeout or
 // removing them based on map size (i.e. maximum number of active filters)
+//
+// The use of the shared server and filter maps means that this function is not
+// thread safe. Empirically, it is observed that this function is not called
+// concurrently (even if there are multiple users talking), but I don't see a
+// clear guarantee of that in the documentation
 void freq_cutoff_onEditPlaybackVoiceDataEvent(
     const struct TS3Functions& ts3_functions, uint64 server_id, anyID client_id,
     short* samples, int sample_count, int channels) {
