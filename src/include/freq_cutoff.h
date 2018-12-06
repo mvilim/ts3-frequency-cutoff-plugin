@@ -20,7 +20,8 @@
 
 #pragma once
 
-#include <string.h>
+#include <string>
+#include <atomic>
 #include <fstream>
 #include <map>
 #include <set>

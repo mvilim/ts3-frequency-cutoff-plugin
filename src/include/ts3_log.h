@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include <string.h>
+#include <string>
 
 #include <ts3_functions.h>
 
