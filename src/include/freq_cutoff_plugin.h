@@ -32,7 +32,7 @@
 
 #define DISPLAY_NAME_BUFSIZE 512
 
-const char* freq_cutoff_version() { return "1.5"; }
+const char* freq_cutoff_version() { return "1.6"; }
 
 const char* freq_cutoff_author() { return "Michael Vilim"; }
 
