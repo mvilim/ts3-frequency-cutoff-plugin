@@ -46,4 +46,4 @@ Drag the slider to the desired frequency, enable the check box, and click apply.
 
 ## Building
 
-Coming soon
+[To-do]
