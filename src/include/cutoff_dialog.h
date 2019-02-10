@@ -101,7 +101,6 @@ class ConfigureCutoffDialog : public QDialog {
                          &ConfigureCutoffDialog::apply_temporary);
     }
 
-   public slots:
     int slider_cutoff_value() { return slider->value() * MULTIPLIER; }
 
     void update_label() {
