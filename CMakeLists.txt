@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(frequency_cutoff_plugin VERSION 1.6.0)
+project(frequency_cutoff_plugin VERSION 1.7.0)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
