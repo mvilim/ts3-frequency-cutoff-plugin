@@ -8,9 +8,9 @@ To install the plugin, you should download a compiled version of the plugin for 
 
 ### TeamSpeak version 3.3-? plugin releases (plugin API 23)
 
-Linux (x64): [libfrequency_cutoff_plugin_api22.1.7.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/libfrequency_cutoff_plugin_api22.1.7.0.so)
+Linux (x64): [libfrequency_cutoff_plugin_api23.1.7.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/libfrequency_cutoff_plugin_api23.1.7.0.so)
 
-Windows (x64): [frequency_cutoff_plugin_api22.1.7.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/frequency_cutoff_plugin_api22.1.7.0.dll)
+Windows (x64): [frequency_cutoff_plugin_api23.1.7.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/frequency_cutoff_plugin_api23.1.7.0.dll)
 
 macOS: not currently released
 
