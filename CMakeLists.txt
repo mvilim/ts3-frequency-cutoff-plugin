@@ -12,3 +12,6 @@ target_include_directories(frequency_cutoff_plugin_21 PUBLIC src/include thirdpa
 
 add_library(frequency_cutoff_plugin_22 SHARED src/api_22/plugin.cpp thirdparty/iir/liir.c)
 target_include_directories(frequency_cutoff_plugin_22 PUBLIC src/include thirdparty/iir/include src/api_22/include thirdparty/teamspeak/api_22/pluginsdk/include /usr/include/qt)
+
+add_library(frequency_cutoff_plugin_23 SHARED src/api_23/plugin.cpp thirdparty/iir/liir.c)
+target_include_directories(frequency_cutoff_plugin_23 PUBLIC src/include thirdparty/iir/include src/api_23/include thirdparty/teamspeak/api_23/pluginsdk/include /usr/include/qt)
