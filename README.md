@@ -6,19 +6,27 @@ This is a TeamSpeak3 plugin designed to remove audio frequencies above a given l
 
 To install the plugin, you should download a compiled version of the plugin for your TeamSpeak version and OS. The plugin needs to be placed in your TeamSpeak plugin folder.
 
-### TeamSpeak version 3.1.1--present (Nov 2018) plugin releases (plugin API 22)
+### TeamSpeak version 3.3-? plugin releases (plugin API 23)
 
-Linux (x64): [libfrequency_cutoff_plugin_api22.1.6.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.6.0/libfrequency_cutoff_plugin_api22.1.6.0.so)
+Linux (x64): [libfrequency_cutoff_plugin_api22.1.7.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/libfrequency_cutoff_plugin_api22.1.7.0.so)
 
-Windows (x64): [frequency_cutoff_plugin_api22.1.6.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.6.0/frequency_cutoff_plugin_api22.1.6.0.dll)
+Windows (x64): [frequency_cutoff_plugin_api22.1.7.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/frequency_cutoff_plugin_api22.1.7.0.dll)
+
+macOS: not currently released
+
+### TeamSpeak version 3.1.1-3.2.X plugin releases (plugin API 22)
+
+Linux (x64): [libfrequency_cutoff_plugin_api22.1.7.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/libfrequency_cutoff_plugin_api22.1.7.0.so)
+
+Windows (x64): [frequency_cutoff_plugin_api22.1.7.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/frequency_cutoff_plugin_api22.1.7.0.dll)
 
 macOS: not currently released
 
 ### TeamSpeak version 3.1.0.1 plugin releases (plugin API 21)
 
-Linux (x64): [libfrequency_cutoff_plugin_api21.1.6.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.6.0/libfrequency_cutoff_plugin_api21.1.6.0.so)
+Linux (x64): [libfrequency_cutoff_plugin_api21.1.7.0.so](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/libfrequency_cutoff_plugin_api21.1.7.0.so)
 
-Windows (x64): [frequency_cutoff_plugin_api21.1.6.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.6.0/frequency_cutoff_plugin_api21.1.6.0.dll)
+Windows (x64): [frequency_cutoff_plugin_api21.1.7.0.dll](https://github.com/mvilim/ts3-frequency-cutoff-plugin/releases/download/v1.7.0/frequency_cutoff_plugin_api21.1.7.0.dll)
 
 macOS: not currently released
 
