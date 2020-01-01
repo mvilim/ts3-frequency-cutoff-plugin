@@ -21,7 +21,6 @@
 #pragma once
 
 #include <string>
-#include <atomic>
 #include <fstream>
 #include <map>
 #include <set>
